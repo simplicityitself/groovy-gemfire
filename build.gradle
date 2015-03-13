@@ -1,0 +1,60 @@
+
+ext {
+  gradleVersion = '2.3'
+}
+
+allprojects {
+	apply plugin: 'groovy'
+
+	[compileJava, compileTestJava]*.options*.compilerArgs = [
+			"-Xlint:varargs",
+			"-Xlint:cast",
+			"-Xlint:classfile",
+			"-Xlint:dep-ann",
+			"-Xlint:divzero",
+			"-Xlint:empty",
+			"-Xlint:finally",
+			"-Xlint:overrides",
+			"-Xlint:path",
+			"-Xlint:processing",
+			"-Xlint:static",
+			"-Xlint:try",
+			"-Xlint:deprecation",
+			"-Xlint:unchecked"
+	]
+	
+	compileJava {
+		sourceCompatibility = 1.7
+		targetCompatibility = 1.7
+	}
+
+	compileTestJava {
+		sourceCompatibility = 1.8
+		targetCompatibility = 1.8
+	}
+
+	repositories {
+		jcenter()
+		mavenCentral()
+    maven { url 'http://dist.gemstone.com/maven/release' }
+	}
+}
+
+subprojects { subproject ->
+	dependencies {
+    compile 'com.gemstone.gemfire:gemfire:8.1.0'
+    compile "org.codehaus.groovy:groovy:2.4.1"
+		testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+	}
+}
+
+project('example-groovy') {
+	description = 'Example Groovy Function for Gemfire'
+	dependencies {
+		
+	}
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
