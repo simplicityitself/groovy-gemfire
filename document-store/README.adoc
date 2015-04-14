@@ -1,0 +1,2 @@
+# Adds a document store capability to Gemfire
+
