@@ -1,3 +1,15 @@
+buildscript {
+  ext {
+    springBootVersion = '1.2.2.RELEASE'
+  }
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+  }
+}
+
 
 ext {
   gradleVersion = '2.3'
@@ -35,7 +47,7 @@ allprojects {
 
 	repositories {
 		jcenter()
-		mavenCentral()
+    maven { url 'http://repo.spring.io/libs-release' }
     maven { url 'http://dist.gemstone.com/maven/release' }
 	}
 }
@@ -53,6 +65,41 @@ project('example-groovy') {
 	dependencies {
 		
 	}
+}
+
+project('example-java') {
+  description = 'Example Java Function for Gemfire'
+  dependencies {
+    compile project(":order-type")
+  }
+}
+
+project('order-type') {
+  description = 'Shared types for use in examples'
+}
+
+project('document-store') {
+  apply plugin: 'spring-boot'
+  description = 'Turn Gemfire into a Document Store using Groovy'
+
+  repositories {
+    maven { url 'http://dl.bintray.com/muoncore/muon-java' }
+  }
+
+  def muonVersion = "0.19"
+
+  dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile "org.springframework.data:spring-data-gemfire:1.6.0.RC1", {
+      exclude module:"spring-web"
+    }
+    compile "io.muoncore:muon-core:$muonVersion"
+    compile "io.muoncore:muon-transport-amqp:$muonVersion"
+    compile "io.muoncore:muon-discovery-amqp:$muonVersion"
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile 'org.spockframework:spock-spring:1.0-groovy-2.4'
+  }
 }
 
 task wrapper(type: Wrapper) {

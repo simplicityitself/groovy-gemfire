@@ -1,0 +1,25 @@
+# Getting Groovy with Gemfire (/ Geode)
+
+This repo has a bunch of projects, examples and experiments with applying the
+Groovy language to Gemfire to give extra capabilities, ease of use and ideas for extension.
+
+## Example Groovy Function
+
+Simple use of Groovy to write a Gemfire function.
+
+Allows the optional ignoring of types and the use of Groovy functional dev
+for processing data across the distributed system.
+
+## Aggregation
+
+Work on a generified aggregation framework for Geode, using Groovy on the
+back end. Uses the same techniques and ideas as the example Groovy function,
+but with greater application.
+
+
+## Document Store
+
+Turn Gemfire into a Document Store a la Mongo etc.
+
+HTTP/ REST interface. Aggregation framework.
+

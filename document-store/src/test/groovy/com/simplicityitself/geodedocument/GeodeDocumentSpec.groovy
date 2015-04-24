@@ -41,8 +41,10 @@ class GeodeDocumentSpec extends Specification {
     given:
     //TODO, some data injected into a region
 
+    //TODO, use the muon API (well, need to add one first ..)
+
     when:
-    def json = new JsonSlurper().parseText(new URL("http://localhost:8080/?q=SELECT * from /Products where name='simple'").text)
+    def json = new JsonSlurper().parseText(new URL("http://localhost:8080/Products?name=simple").text)
 
     then:
     json.size() == 2
@@ -63,6 +65,13 @@ class GeodeDocumentSpec extends Specification {
 
     //then, that can be used to perform query via OQL, then groovy map/ reduce
     //can we distribute the reduce phase too?
+  }
+
+  def "receive event push via the muon reactive stream API"() {
+
+
+
+
   }
 
 }

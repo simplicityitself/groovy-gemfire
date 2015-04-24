@@ -1,4 +1,4 @@
-package com.simplicityitself.geodedocument.web
+package com.simplicityitself.geodedocument.ui
 
 import com.simplicityitself.geodedocument.store.DocumentStore
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,13 +15,11 @@ class DocumentController {
   @Autowired
   DocumentStore documentStore
 
-  @RequestMapping(value = " /", method=RequestMethod.GET)
-  public @ResponseBody Map query(
-      @RequestParam(required = true) String q) {
-    return [
-        "hello":"World",
-        query:q
-    ]
+  @RequestMapping(value = "/{region}", method=RequestMethod.GET)
+  public @ResponseBody Collection query(
+      @PathVariable String region,
+      @RequestParam Map params) {
+    return documentStore.query(region, params)
   }
 
   @RequestMapping(value = " /{region}/{docId}", method=RequestMethod.GET)

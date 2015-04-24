@@ -1,11 +1,9 @@
 package com.simplicityitself.geodedocument.store
 
 import com.gemstone.gemfire.cache.Cache
-import com.gemstone.gemfire.cache.PartitionAttributes
+import com.gemstone.gemfire.cache.Region
 import com.gemstone.gemfire.cache.RegionShortcut
-import com.gemstone.gemfire.cache.Scope
 import com.gemstone.gemfire.cache.query.QueryService
-import com.gemstone.gemfire.internal.tools.gfsh.app.command.task.data.PartitionAttributeInfo
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -27,20 +25,43 @@ class DocumentStore {
   }
 
   def findById(String region, String id) {
-    def regionMap = cache.getRegion(region)
-    if (regionMap == null) {
-      regionMap = cache.createRegionFactory(RegionShortcut.PARTITION_REDUNDANT).create(region)
-      log.warn("Created new Region[${region}] - Partitioned|Redundant")
-    }
-    return regionMap[id]
+    return getRegion(region)[id]
   }
 
   def putById(String region, String id, def object) {
-
-    cache.getRegion("region")
+    getRegion(region).put(id, object)
   }
 
-  def query(String query) {
+  Collection query(String region, Map params) {
 
+    def query = "SELECT * from /${region}"
+
+    if (params) {
+      query += " WHERE "
+    }
+
+    def paramObjects = []
+
+    params.eachWithIndex { entry, idx ->
+      query += " ${entry.key}=\$${idx}"
+      paramObjects << entry.value
+    }
+
+    def q = queryService.newQuery(query)
+
+    if (params) {
+      return q.execute(paramObjects)
+    } else {
+      return q.execute()
+    }
+  }
+
+  Region getRegion(String name) {
+    Region regionMap = cache.getRegion(name)
+    if (regionMap == null) {
+      regionMap = cache.createRegionFactory(RegionShortcut.PARTITION_REDUNDANT).create(name)
+      log.warn("Created new Region[${name}] - Partitioned|Redundant")
+    }
+    regionMap
   }
 }

@@ -36,7 +36,7 @@ class GroovySumFunction implements Function  {
 
   @Override
   String getId() {
-    return "groovySum"
+    return "si-sum"
   }
 
   @Override

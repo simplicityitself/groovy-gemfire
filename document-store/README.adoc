@@ -1,2 +1,28 @@
-# Adds a document store capability to Gemfire
+# A rich, in memory document store
 
+Based on Geode/ Gemfire.
+
+Changes the client model to work in a very similar way to MongoDB etc.
+
+No objects, instead JSON is used exclusively as the document representation
+(for now..)
+
+## Query
+
+Uses OQL queries.
+
+## Aggregation
+
+Aggregation is not yet supported...  See the GroovyAggregation module to see if that is changing ...
+
+## Client
+
+Uses HTTP/ REST and also a Muon interface.
+
+This gives :-
+
+* Multi transport (AMQP, HTTP, ZeroMQ)
+* Polyglot (Currently Java/ Node.js)
+* Request/ response (like HTTP!)
+* Streaming updates via a reactive streams (http://reactive-streams.org) interface
+ * This is used to expose the geode continuous queries for document updates.
