@@ -1,3 +1,5 @@
+:asciidoctor-source: https://raw.githubusercontent.com/reactive-streams/reactive-streams-jvm/master/api/src/main/java/org/reactivestreams/
+
 # Getting Groovy with Gemfire (/ Geode)
 
 This repo has a bunch of projects, examples and experiments with applying the
@@ -23,3 +25,11 @@ Turn Gemfire into a Document Store a la Mongo etc.
 
 HTTP/ REST interface. Aggregation framework.
 
+
+
+ 
+#Demo of import of a file.
+ 
+[source,java,indent=2]
+----
+include::{asciidoctor-source}/Publisher.java[lines=5..10]
