@@ -1,7 +1,7 @@
 package com.simplicityitself.geodedocument
 
 import com.simplicityitself.geodedocument.store.DocumentStore
-import com.simplicityitself.geodedocument.store.GemfireConfiguration
+import com.simplicityitself.geodedocument.store.GeodeConfiguration
 import groovy.util.logging.Slf4j
 import io.muoncore.Muon
 import io.muoncore.extension.amqp.AmqpTransportExtension
@@ -17,11 +17,11 @@ import javax.annotation.PostConstruct
 
 /**
  * Boots a standalone document server.
- * Expects to connect to a running gemfire cluster.
+ * Expects to connect to a running geode cluster.
  */
 @SpringBootApplication
 @Import([
-    GemfireConfiguration
+    GeodeConfiguration
 ])
 @Slf4j
 class Standalone {

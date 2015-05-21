@@ -7,7 +7,7 @@ import org.springframework.data.gemfire.CacheFactoryBean
 
 @ComponentScan
 @Configuration
-class GemfireConfiguration {
+class GeodeConfiguration {
 
   @Bean
   CacheFactoryBean cacheFactoryBean() {

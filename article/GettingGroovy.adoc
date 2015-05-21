@@ -1,0 +1,89 @@
+# Getting Groovy with geode
+
+
+
+Set the environment variable, GFHOME=<you geode installation>
+
+To start up an example 4 node cluster (1 locator, 3 cache servers)
+server-example/start-cache.sh
+
+To shutdown the cluster (totally, possible data loss!)
+server-example/stop-cache.sh
+
+
+Open gfsh
+
+connect --locator=localhost[41111]
+
+You will now be connected to the geode cluster.
+
+gfsh> list members
+ Name   | Id
+------- | ----------------------------------------
+locator | 10.0.3.1(locator:3640:locator)<v0>:15865
+server1 | 10.0.3.1(server1:3938)<v1>:44109
+server3 | 10.0.3.1(server3:4202)<v3>:53353
+server2 | 10.0.3.1(server2:4087)<v2>:54399
+
+A single region has been created /CustomerOrder.
+
+gfsh>list regions
+List of regions
+---------------
+CustomerOrder
+
+Some inspection tells us that it is a partitioned region. This is the primary use case for geode, sharding a large data set across the active RAM of multiple OS instances.
+ This enables the geode cluster to hold and process, in a single Region, more objects than could fit in a single OS instance.
+
+gfsh>describe region --name=/CustomerOrder
+..........................................................
+Name            : CustomerOrder
+Data Policy     : partition
+Hosting Members : server1
+                  server2
+                  server3
+
+This also allows us to load in functions to be executed.
+
+XXX
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

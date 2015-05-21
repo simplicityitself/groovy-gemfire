@@ -7,3 +7,7 @@
 .project
 build/
 .gradle
+server-example/locator/
+server-example/server1/
+server-example/server2/
+server-example/server3/
