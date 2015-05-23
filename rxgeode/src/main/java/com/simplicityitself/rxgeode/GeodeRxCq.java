@@ -64,7 +64,7 @@ public class GeodeRxCq implements Publisher<CqEvent> {
 
         @Override
         public void request(long n) {
-            //TODO, respect the back pressure signals.
+            //TODO, respect the back pressure signals somehow ...
             if(!started) {
                 if (bootException != null) {
                     try {
@@ -77,7 +77,6 @@ public class GeodeRxCq implements Publisher<CqEvent> {
                 }
                 try {
                     cqQuery.execute();
-                    System.out.println("Initialised RxCQ");
                     started = true;
                 } catch (Exception e) {
                     sub.onError(e);

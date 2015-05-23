@@ -1,6 +1,6 @@
 # Getting Groovy with Gemfire (/ Geode)
 
-This repo has a bunch of projects, examples and experiments with applying the
+This repo is a bunch of work in progress projects, examples and experiments with applying the
 Groovy language to geode to give extra capabilities, ease of use and ideas for extension.
 
 ## Example Groovy Function
@@ -17,10 +17,6 @@ back end. Uses the same techniques and ideas as the example Groovy function,
 but with greater application.
 
 
-## Document Store
+## RxGeode
 
-Turn geode into a Document Store a la Mongo etc.
-
-HTTP/ REST interface. Aggregation framework.
-
-
+Reactive Extensions for Geode.
