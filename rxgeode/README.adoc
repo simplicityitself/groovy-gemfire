@@ -19,7 +19,7 @@ import reactor.rx.Streams
     GeodeRxCq cq = new GeodeRxCq(
             cache,
             "cqName",
-            """SELECT * FROM /TradeOrder t WHERE t.get('price') > 90""")
+            """SELECT * FROM /TradeOrder t WHERE t.price > 90""")
 
     Stream<CqEvent> str = Streams.wrap(cq)
 
