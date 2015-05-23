@@ -45,6 +45,8 @@ class Standalone {
     SpringApplication.run Standalone, args
 
     println "DONE MY AWESOME!"
+
+
   }
 
   @Bean Muon muon() {

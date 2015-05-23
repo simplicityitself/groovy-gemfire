@@ -7,4 +7,7 @@
         <region name="CustomerOrder">
     		<region-attributes refid="PARTITION"/>
     	</region>
+        <region name="TradeOrder">
+    		<region-attributes refid="PARTITION"/>
+    	</region>
 </cache>

@@ -10,9 +10,13 @@ buildscript {
   }
 }
 
-
 ext {
-  gradleVersion = '2.3'
+  gradleVersion = '2.4'
+  reactiveStreamsVersion = '1.0.0.final'
+  reactorVersion = '2.0.1.RELEASE'
+  muonVersion = "0.30-+"
+//  geode="org.apache.geode:gemfire-core:1.0.0-incubating-SNAPSHOT"
+  geode='com.gemstone.gemfire:gemfire:8.0.0'
 }
 
 allprojects {
@@ -49,26 +53,28 @@ allprojects {
 		jcenter()
     maven { url 'http://repo.spring.io/libs-release' }
     maven { url 'http://dist.gemstone.com/maven/release' }
+    mavenLocal()
 	}
 }
 
 subprojects { subproject ->
 	dependencies {
-    compile 'com.gemstone.gemfire:gemfire:8.1.0'
+//    compile 'com.gemstone.gemfire:gemfire:8.1.0'
+    compile geode
     compile "org.codehaus.groovy:groovy:2.4.1"
 		testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
 	}
 }
 
 project('example-groovy') {
-	description = 'Example Groovy Function for Gemfire'
+	description = 'Example Groovy Function for Geode'
 	dependencies {
 		
 	}
 }
 
 project('example-java') {
-  description = 'Example Java Function for Gemfire'
+  description = 'Example Java Function for Geode'
   dependencies {
     compile project(":order-type")
   }
@@ -78,15 +84,20 @@ project('order-type') {
   description = 'Shared types for use in examples'
 }
 
+project('rxgeode') {
+  dependencies {
+    compile "org.reactivestreams:reactive-streams:$reactiveStreamsVersion"
+    testCompile "io.projectreactor:reactor-stream:$reactorVersion"
+  }
+}
+
 project('document-store') {
   apply plugin: 'spring-boot'
-  description = 'Turn Gemfire into a Document Store using Groovy'
+  description = 'Turn Geode into a Document Store using Groovy'
 
   repositories {
     maven { url 'http://dl.bintray.com/muoncore/muon-java' }
   }
-
-  def muonVersion = "0.19"
 
   dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
@@ -97,11 +108,14 @@ project('document-store') {
     compile "io.muoncore:muon-core:$muonVersion"
     compile "io.muoncore:muon-transport-amqp:$muonVersion"
     compile "io.muoncore:muon-discovery-amqp:$muonVersion"
+
+    compile "com.simplicityitself:rx-geode-cacheserver:0.1-SNAPSHOT"
+
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile 'org.spockframework:spock-spring:1.0-groovy-2.4'
   }
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
+    gradleVersion = '2.4'
 }

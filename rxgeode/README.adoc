@@ -1,0 +1,15 @@
+# RxGeode
+
+Reactive eXtensions for Geode.
+
+This takes certain Geode functionality and exposes
+it in different ways using the http://www.reactive-streams.org[Reactive Streams]
+specification and implemented for the most part using Spring Reactor
+
+## Continuous Queries
+
+
+## AsyncListener
+
+## Write Behind
+
