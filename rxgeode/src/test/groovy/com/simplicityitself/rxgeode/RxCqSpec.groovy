@@ -6,6 +6,8 @@ import com.gemstone.gemfire.cache.Region
 import com.gemstone.gemfire.cache.client.ClientCache
 import com.gemstone.gemfire.cache.client.ClientCacheFactory
 import com.gemstone.gemfire.cache.client.ClientRegionShortcut
+import com.gemstone.gemfire.cache.query.CqEvent
+import reactor.rx.Stream
 import reactor.rx.Streams
 import spock.lang.AutoCleanup
 import spock.lang.Specification
@@ -34,7 +36,7 @@ class RxCqSpec extends Specification {
 
     SecureRandom rand = new SecureRandom()
 
-    def str = Streams.wrap(new GeodeRxCq(
+    Stream<CqEvent> str = Streams.wrap(new GeodeRxCq(
         cache,
         "geodeRxCq+${rand.nextLong()}",
         """SELECT * FROM /TradeOrder t WHERE t.get('price') > 90"""

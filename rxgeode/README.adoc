@@ -8,7 +8,32 @@ specification and implemented for the most part using Spring Reactor
 
 ## Continuous Queries
 
+```(groovy)
+import reactor.rx.Streams
 
+...
+
+    ClientCache cache = XXX
+
+    //Convert a Continuous Query into a Reactive Stream
+    GeodeRxCq cq = new GeodeRxCq(
+            cache,
+            "cqName",
+            """SELECT * FROM /TradeOrder t WHERE t.get('price') > 90""")
+
+    Stream<CqEvent> str = Streams.wrap(cq)
+
+    str.map {
+      it.newValue
+    }.consume {
+      //do something with the newly added value
+    }
+
+    ... at some point later ...
+
+    cache.getRegion("TradeOrder").put("123", value);
+
+```
 ## AsyncListener
 
 ## Write Behind
