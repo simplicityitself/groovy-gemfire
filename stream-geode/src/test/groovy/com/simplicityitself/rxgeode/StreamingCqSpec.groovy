@@ -1,7 +1,5 @@
 package com.simplicityitself.rxgeode
 
-import com.gemstone.gemfire.cache.Cache
-import com.gemstone.gemfire.cache.CacheFactory
 import com.gemstone.gemfire.cache.Region
 import com.gemstone.gemfire.cache.client.ClientCache
 import com.gemstone.gemfire.cache.client.ClientCacheFactory
@@ -15,13 +13,13 @@ import spock.util.concurrent.PollingConditions
 
 import java.security.SecureRandom
 
-class RxCqSpec extends Specification {
+class StreamingCqSpec extends Specification {
 
 
   @AutoCleanup("close")
   ClientCache cache = geodeClientCache()
 
-  def "can open a GeodeRxCq on a client region and receive streaming updates from server cache"() {
+  def "can open a GeodeStreamingCq on a client region and receive streaming updates from server cache"() {
 
     given:"A place to store data"
     def data = []
@@ -36,7 +34,7 @@ class RxCqSpec extends Specification {
 
     SecureRandom rand = new SecureRandom()
 
-    Stream<CqEvent> str = Streams.wrap(new GeodeRxCq(
+    Stream<CqEvent> str = Streams.wrap(new GeodeStreamingCq(
         cache,
         "geodeRxCq+${rand.nextLong()}",
         """SELECT * FROM /TradeOrder t WHERE t.get('price') > 90"""

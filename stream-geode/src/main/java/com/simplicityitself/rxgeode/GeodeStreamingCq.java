@@ -1,22 +1,18 @@
 package com.simplicityitself.rxgeode;
 
-import com.gemstone.gemfire.cache.Cache;
 import com.gemstone.gemfire.cache.client.ClientCache;
 import com.gemstone.gemfire.cache.query.*;
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-
-public class GeodeRxCq implements Publisher<CqEvent> {
+public class GeodeStreamingCq implements Publisher<CqEvent> {
 
     private ClientCache cache;
     private String basename;
     private String query;
 
-    GeodeRxCq(
+    GeodeStreamingCq(
             ClientCache cache,
             String basename,
             String query) {
@@ -35,7 +31,7 @@ public class GeodeRxCq implements Publisher<CqEvent> {
 
         private Subscriber<? super CqEvent> sub;
         private CqQuery cqQuery;
-        private GeodeRxCqListener listener;
+        private GeodeStreamingCqListener listener;
 
         boolean started = false;
         private Exception bootException;
@@ -45,7 +41,7 @@ public class GeodeRxCq implements Publisher<CqEvent> {
 
             try {
                 CqAttributesFactory cqf = new CqAttributesFactory();
-                listener = new GeodeRxCqListener(sub);
+                listener = new GeodeStreamingCqListener(sub);
                 cqf.addCqListener(listener);
                 CqAttributes cqa = cqf.create();
 

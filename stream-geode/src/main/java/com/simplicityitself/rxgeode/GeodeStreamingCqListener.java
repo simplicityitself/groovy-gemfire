@@ -4,11 +4,11 @@ import com.gemstone.gemfire.cache.query.CqEvent;
 import com.gemstone.gemfire.cache.query.CqListener;
 import org.reactivestreams.Subscriber;
 
-class GeodeRxCqListener implements CqListener {
+class GeodeStreamingCqListener implements CqListener {
 
     private Subscriber<? super CqEvent> subscriber;
 
-    GeodeRxCqListener(Subscriber<? super CqEvent> sub) {
+    GeodeStreamingCqListener(Subscriber<? super CqEvent> sub) {
         this.subscriber = sub;
     }
 

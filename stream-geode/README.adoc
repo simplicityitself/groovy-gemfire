@@ -1,6 +1,6 @@
-# RxGeode
+# Streaming Geode
 
-Reactive eXtensions for Geode.
+Convert elements of the Geode to the Reactive Streams API.
 
 This takes certain Geode functionality and exposes
 it in different ways using the http://www.reactive-streams.org[Reactive Streams]
